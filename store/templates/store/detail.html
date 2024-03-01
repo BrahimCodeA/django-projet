@@ -4,10 +4,10 @@
 
 
 <div class="container mx-auto mt-40 px-2">
-    <div class="grid grid-cols-1 py-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 py-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7">
         <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" class="w-full max-h-[640px] rounded-xl">
         <div class="space-y-2 ml-4">
-            <h2 class="font-bold text-4xl mt-2">{{ product.name }}</h2>
+            <h2 class="font-bold text-3xl md:text-4xl lg:text-4xl">{{ product.name }}</h2>
             <h3 class="font-semibold font-serif text-lg">{{ product.price }}€</h3>
             <div class="w-full bg-black h-1"></div>
             <p class="text-lg">{{ product.description }}</p>

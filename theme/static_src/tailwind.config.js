@@ -33,7 +33,7 @@ module.exports = {
           },   
           screens: {
               'sm': '740px',  // Personnalisez la taille pour sm comme vous le souhaitez
-              'md': '1350px',
+              'md': '1000px',
               'lg': '1600px',
               'xl': '2280px',
             },

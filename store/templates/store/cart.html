@@ -28,7 +28,7 @@
                     <input type="hidden" name="product_id" value="{{ order.product.id }}">
                     <input type="hidden" name="order_id" value="{{ order.id }}">
 
-                    <span class="text-sm md:text-lg lg:text-xl font-bold">{{ order.product.name }} <i class="text-gray-200 text-xl">{{ order.product.price }} &euro;</i></span>
+                    <span class="text-md md:text-lg lg:text-xl font-bold">{{ order.product.name }} <i class="text-gray-200 text-md md:text-lg lg:text-xl">{{ order.product.price }} &euro;</i></span>
 
                     <button class="border-2 border-emerald-500 bg-white rounded-md px-3 font-bold" type="submit"
                         name="action" value="remove"
@@ -48,7 +48,7 @@
                     <input type="hidden" name="goodie_id" value="{{ order.goodie.id }}">
                     <input type="hidden" name="order_id" value="{{ order.id }}">
 
-                    <span class="text-sm md:text-lg lg:text-xl  font-bold">{{ order.goodie.name }} <i class="text-gray-300">{{ order.goodie.price }} &euro;</i></span>
+                    <span class="text-md md:text-lg lg:text-xl font-bold">{{ order.goodie.name }} <i class="text-gray-300 text-md md:text-lg lg:text-xl">{{ order.goodie.price }} &euro;</i></span>
                     <button class="border-2 border-emerald-500 bg-white rounded-md px-3 font-semibold" type="submit"
                         name="action" value="remove"
                         formaction="{% url 'remove-from-cart' order_id=order.id %}">-</button>
