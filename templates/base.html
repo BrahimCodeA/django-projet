@@ -1,0 +1,245 @@
+{% load tailwind_tags %}
+{% load static %}
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %} {% endblock %}</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+ <style>
+      #menu-toggle:checked + #menu {
+        display: block;
+      }
+
+      .fade-in {
+        animation: fadeIn 8.0s;
+        animation-fill-mode: both;
+      }
+      
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        40% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInRight {
+        0% {
+          opacity: 0;
+          transform: translateX(-20px); /* Déplace l'élément vers la droite de 20px */
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0); /* Retour à la position d'origine (pas de translation) */
+        }
+      }
+      
+      .animate-fadeinRight {
+        animation: fadeInRight 3.5s;
+        animation-fill-mode: both;
+      }
+  </style>
+
+    {% tailwind_css %}
+</head>
+
+<body class="bg-gradient-to-br from-emerald-400 via-emerald-900 to-emerald-800">
+    <!-- Navbar Responsive  -->
+    <nav class="bg-gradient-to-br from-emerald-500 via-emerald-900 to-lime fixed w-full p-3 animate-fadeinRight"
+        style="z-index: 1000; top: 0;">
+        <div class="container mx-auto flex flex-wrap items-center p-2 justify-between">
+            <div class="flex flex-wrap">
+                <!-- Logo et nom du site -->
+                <a href="{% url 'home' %}" class="flex items-center">
+                    <img style="width: 80px;" src="{% static 'DekuHome.png' %}" alt="Deku Home">
+                    <span
+                        class="bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-700 bg-clip-text text-transparent text-5xl lg:text-6xl md:text-6xl hover:text-emerald-700 font-font-Viga lg:ml-2 md:lg-2">DekuShop
+                    </span>
+                </a>
+            </div>
+            <!-- Bouton Hamburger pour le Responsive dans la Navbar -->
+          <label for="menu-toggle" class="pointer-cursor lg:hidden block"><svg class="fill-current text-gray-300 hover:text-black" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 20 20"><title>menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></label>
+          <input class="hidden" type="checkbox" id="menu-toggle" />
+ 
+            <!-- Liste de liens dans la navbar -->
+            <div class="hidden lg:flex lg:items-center lg:w-auto w-full animate-fadeinRight" id="menu">
+            <ul class="lg:flex items-center justify-between text-base pt-4 lg:pt-0 space-y-3">
+                <li class="">
+                    <a href="{% url 'mha_category' %}" class="nav-link flex items-center mt-2">
+                        <img class="mr-1" style="width: 80px; " src="{% static 'LogoMHA.png' %}" alt="MHA">
+                        <span
+                            class="font-bold text-lg text-black hover:text-emerald-500 font-font-Viga">MyHeroAcademia</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'naruto_category' %}" class="nav-link flex items-center">
+                        <img class="mr-1" style="width: 72px;" src="{% static 'LogoNaruto.png' %}" alt="Naruto">
+                        <span class="font-bold text-lg text-black font-font-Viga hover:text-emerald-500">Naruto</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'onepiece_category' %}" class="nav-link flex items-center">
+                        <img class="" style="width: 58px;" src="{% static 'LogoOnePiece.png' %}" alt="One Piece">
+                        <span class="font-bold text-lg text-black font-font-Viga hover:text-emerald-500 mr-1">One Piece</span>
+                    </a>
+                </li>
+                <!-- Lien qui dirige vers la page de Contact -->
+                <li class="">
+                    <a href="{% url 'contact' %}" class="nav-link flex items-center">
+                        <img class="mr-1" style="width: 58px;" src="{% static 'LogoContact.png' %}" alt="Contact">
+                        <span
+                            class="font-bold text-lg text-black lg:mr-44 font-font-Viga hover:text-emerald-500">Contact</span>
+                    </a>
+                </li>
+
+                <li class="flex items-center ">
+                    <div>
+                        <!-- Si User se connecte on affiche un message de Bienvenue -->
+                        {% if user.is_authenticated %}
+                        <p class="font-semibold hover:underline flex mr-2">
+                            <span class="mr-2 text-white">Bienvenue, </span>
+                            <a href="{% url 'cart' %}">
+                                <span class="text-emerald-400 font-font-Viga">{{ user.username }}</span>
+                            </a>
+                        </p>
+                        <p>
+                            <span><a href="{% url 'logout' %}"
+                                    class="font-bold underline decoration-solid text-white">Déconnexion</a></span>
+                        </p>
+                    </div>
+                    {% else %}
+                    <!-- Bouton qui dirige vers la page de Connexion -->
+                    <a href="{% url 'login' %}" class="btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] text-white bg-emerald-650 p-2
+                        ease-out hover:translate-y-1 transition-all rounded mr-2">
+                        <span class="font-bold text-emerald-500 hover:text-emerald-600 text-xl">Connexion</span>
+                    </a>
+                </li>
+                <!-- Bouton qui dirige vers la page d'Inscription -->
+                <li class="flex items-center">
+                    <a href="{% url 'signup' %}" class="btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] text-black bg-emerald-650 p-1.5
+                     ease-out hover:translate-y-1 transition-all rounded mr-2">
+                        <span class="font-bold hover:text-emerald-600 text-xl">S'inscrire</span>
+                    </a>
+                    {% endif %}
+                </li>
+                <li class="">
+                    <!-- Lien du panier avec le nombre d'articles -->
+                    <a href="{% url 'cart' %}" class="nav-link flex items-center mr-2 mt-2">
+                        <img style="width: 58px;" src="{% static 'LogoPanier2.png' %}" alt="">
+                        <span class="font-bold text-lg bg-emerald-500 text-black p-2 rounded hover:text-emerald-900">{{ user.cart.orders.count }}</span>         
+                    </a>
+                </li>
+            </ul>
+          </div>  
+        </div>
+    </nav>
+
+
+    <!-- Script pour basculer la visibilité de la liste de navigation sur les petits écrans    -->
+    <script>
+
+        var menuVisible = false;
+        var menuBtn = document.getElementById('menu-btn');
+        var navList = document.querySelector('.lg\\:flex');
+
+        menuBtn.addEventListener('click', function () {
+            navList.classList.toggle('hidden', menuVisible);
+            menuVisible = !menuVisible;
+        });
+    </script>
+
+
+    {% block content %}
+    {% endblock %}
+
+
+    <div class="grid grid-cols-1">
+        <!-- Le Footer -->
+            <footer class="bg-gradient-to-tl from-emerald-900 via-emerald-700 to-emerald-900 text-white mt-12 p-16 relative bottom-0 w-full rounded-3xl shadow-lg animate-fadeinRight">
+                <div class="container mx-auto text-center text-black grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Colonne 1 Nom du site 'Deku Shop' -->
+                    <div class="col-span-1">
+                        <a href="{% url 'home' %}" class="flex items-center">
+                            <span class="bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-800 bg-clip-text text-transparent text-6xl hover:text-emerald-800 font-font-Viga ml-4">DekuShop</span>
+                        </a>
+                    </div>
+                    <!-- Colonne 2 Icône Instagram, Facebook, Tiktok -->
+                    <div class="col-span-1 space-y-3">
+                        <h1 class="bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-700 bg-clip-text text-transparent text-3xl font-bold hover:text-emerald-900">Suivez-nous</h1>
+                        <div class="w-3/3 bg-gray-900 h-1"></div>
+                        <div>
+                            <a href="#" class="social-icon instagram font-semibold hover:underline">
+                                <i class="fa-brands fa-instagram bg-gradient-to-t from-violet-500 via-violet-400 to-pink-700 bg-clip-text text-transparent text-lg"></i> Instagram
+                            </a>
+                        </div>
+                        
+                        <div>
+                            <a href="#" class="social-icon tiktok font-semibold  hover:underline">
+                                <i class="fa-brands fa-tiktok text-black-500 text-lg"></i> TikTok
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#" class="social-icon facebook font-semibold hover:underline">
+                                <i class="fa-brands fa-facebook text-blue-500 text-lg"></i> Facebook
+                            </a>
+                        </div>
+                    </div>
+        
+                    <!-- Colonne 3 Liens vers les differentes Collection  -->
+                    <div class="col-span-1 space-y-3">
+                        <h1 class="bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-700 bg-clip-text text-transparent text-3xl font-bold hover:text-emerald-900">Collections</h1>
+                        <div class="w-3/3 bg-gray-900 h-1"></div>
+                        <div>
+                            <a href="{% url 'mha_category' %}" class="font-semibold text-lg hover:underline">My Hero Academia</a> 
+                        </div>
+                        <div>
+                            <a href="{% url 'naruto_category' %}" class="font-semibold text-lg hover:underline">Naruto</a> 
+                        </div>
+                        <div>
+                            <a href="{% url 'onepiece_category' %}" class="font-semibold text-lg hover:underline">One Piece</a>
+                        </div>
+                        <div>
+                            <a href="#" class="font-semibold text-lg hover:underline">Mentions légales</a>
+                        </div>
+                        <div>
+                            <a href="#" class="font-semibold text-lg hover:underline">Politique de confidentialité</a>
+                        </div>
+                    </div>
+        
+                    <!-- Colonne 4 Informations -->
+                    <div class="col-span-1 space-y-3">
+                        <h1 class="bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-700 bg-clip-text text-transparent text-3xl font-bold hover:text-emerald-900">Contact</h1>
+                        <div class="w-3/3 bg-gray-900 h-1"></div>
+                        <div class="font-semibold text-lg hover:underline">
+                            Téléphone : +33 6 66 66 66 66
+                        </div>
+                        <div class="font-semibold text-lg hover:underline">
+                            Email : DekuShop@gmail.com
+                        </div>
+                    </div>
+                    <span>&copy; Copyright 2024 | Développé par Deku</span>
+                </div>
+            </footer>
+        </div>
+    
+
+
+</body>
+
+</html>

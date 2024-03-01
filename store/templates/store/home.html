@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% block title %}Accueil{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Carousel avec Trois Images -->
+<div class="bg-gradient-to-tr from-emerald-500 via-emerald-900 to-emerald-950">
+    <div class="container mx-auto relative p-2">
+        <div x-data="{ activeSlide: 0 }" class="relative overflow-hidden fade-in">
+            <div x-show="activeSlide === 0" class="w-full relative fade-in">
+                <a href="{% url 'mha_category' %}">
+                    <img class="w-full h-[450px] lg:h-[600px] md:h-[600px] mt-40 mb-4 border-t-4 border-b-4 border-l-4 border-r-4 border-black rounded-md"
+                    src="{% static 'MhaFond.jpeg' %}" alt="MHA">
+                    <div class="absolute inset-0 ">
+                        <h1 class="font-bold font-paytone text-4xl md:text-6xl lg:text-6xl bg-gradient-to-t from-orange-800 via-emerald-600 to-red-900 bg-clip-text text-transparent hover:text-emerald-500 mt-4 ml-4 text-center hover:shadow-sm transition duration-300 transform hover:scale-105">Boku No Hero</h1>
+                    
+                    </div>
+                </a>    
+            </div>
+
+            <div x-show="activeSlide === 1" class="w-full relative fade-in">
+                <a href="{% url 'naruto_category' %}">
+                    <img class="w-full h-[450px] lg:h-[600px] md:h-[600px] mt-40 mb-4 border-t-4 border-b-4 border-l-4 border-r-4 border-black rounded-md"
+                        src="{% static 'NarutoFond.jpeg' %}" alt="NARUTO">
+                    <div class="absolute inset-0">
+                        <h1 class="font-bold font-paytone text-4xl md:text-6xl lg:text-6xl bg-gradient-to-t from-black via-orange-600 to-red-500 bg-clip-text text-transparent hover:text-orange-500 mt-4 ml-4 text-center hover:shadow-sm transition duration-300 transform hover:scale-105">
+                            Naruto<span class="bg-gradient-to-t from-black via-violet-600 to-violet-500 bg-clip-text text-transparent hover:text-purple-500"> Sasuke</span></h1>
+                      
+                    </div>
+                </a>               
+            </div>
+            
+            <div x-show="activeSlide === 2" class="w-full relative fade-in">
+                <a href="{% url 'onepiece_category' %}">
+                <img class="w-full h-[450px] lg:h-[600px] md:h-[600px] mt-40 mb-4 border-t-4 border-b-4 border-l-4 border-r-4 border-black rounded-md"
+                    src="{% static 'OnePieceFond.jpeg' %}" alt="One Piece">
+                    <div class="absolute inset-0">
+                        <p class="font-bold font-paytone text-4xl md:text-6xl lg:text-6xl bg-gradient-to-t from-blue-800  via-red-600 to-blue-900 bg-clip-text text-transparent hover:text-red-600 mt-4 ml-4 text-center hover:shadow-sm transition duration-300 transform hover:scale-105">One Piece</p>
+                   
+                    </div>     
+                </a>    
+            </div>
+
+            <!-- Flèche précédente -->
+            <button @click.stop="activeSlide = (activeSlide - 1 + 3) % 3"
+                class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 hover:bg-gray-600 text-white p-2 rounded-full">
+                &larr;
+            </button>
+
+            <!-- Flèche suivante -->
+            <button @click.stop="activeSlide = (activeSlide + 1) % 3"
+                class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 hover:bg-gray-600 text-white p-2 rounded-full">
+                &rarr;
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Paragraphe avec image pour présenter le site  -->
+<div class="container mx-auto flex items-center justify-center mt-12 animate-fadeinRight">
+    <img src="{% static 'MHAP2.png' %}" alt="Illustration" class="w-[220px] h-[220px] object-cover mr-1 ml-3">
+    <div class="text-center">
+        <div id="paragrapheContainer" class="overflow-hidden">
+            <p id="paragraphe" class="font-semibold text-lg md:text-xl lg:text-xl sm:max-w-sm md:max-w-full lg:max-w-full xl:max-w-full mr-2">
+                Chers passionnés d'animés et de mangas, bienvenue sur mon site dédié à l'univers captivant de ces
+                merveilleuses créations japonaises. En tant que fervent amateur de la série <span
+                    class="font-bold text-emerald-500"><strong>My Hero Academia</strong></span>, j'ai ressenti le besoin
+                de créer cet espace où vous pourrez découvrir et collectionner les trésors de nos animés préférés tels
+                que <span class="font-bold text-emerald-500"><strong>MHA</strong></span>, <span
+                    class="font-bold text-emerald-500"><strong>Naruto</strong></span>, et <span
+                    class="font-bold text-emerald-500"><strong>One Piece</strong></span>. Ce site est le fruit de ma
+                passion pour les récits épiques, les personnages emblématiques, et l'art visuel exceptionnel que l'on
+                trouve dans les animés et les mangas.<span class="font-bold text-emerald-500"><strong>Explorez notre collection</strong></span> soigneusement sélectionnée, rencontrez vos
+                héros préférés. 
+            </p>
+        </div>
+        <button id="voirPlus"
+            class="sm:inline-block md:hidden lg:hidden xl:hidden text-emerald-500 font-bold underline mt-2 focus:outline-none">
+            Voir plus
+        </button>
+    </div>
+</div>
+
+ <!-- Partie des figurines  -->
+
+ <div class="text-center mt-20 animate-fadeinRight">
+    <span
+        class="bg-gradient-to-t from-emerald-900 via-emerald-600 to-emerald-500 bg-clip-text text-transparent text-5xl font-bold">
+        Nos Figurines
+    </span>
+    <p class="pt-4 px-1.5">Rencontrez vos <strong>héros préférés</strong> et donnez vie à votre collection.</p>
+</div>
+<div class="container mx-auto mt-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-7 px-5">
+        {% for product in products %}
+        <div
+            class="mb-8 p-3 fade-in bg-gradient-to-bl from-emerald-500 via-emerald-900 to-emerald-950 text-emerald-500 rounded-md shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
+            <a href="{{ product.get_absolute_url }}">
+                <h2
+                    class="bg-gradient-to-tl from-emerald-400 via-emerald-500 to-emerald-300 bg-clip-text text-transparent text-2xl lg:text-2xl text-center font-bold mb-2">
+                    {{ product.name }}
+                </h2>
+                <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}"
+                    class="w-full h-80 object-cover mb-4 rounded-lg border-4 border-green-700">
+                <a href="{{ product.get_absolute_url }}"
+                    class="block text-center font-semi-bold font-mono text-white bg-emerald-500 py-2 px-4 rounded-md hover:bg-emerald-900 transition duration-300">Voir
+                    l'article
+                </a>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<!-- Les Goodies  -->
+
+<div class="container mx-auto mt-16 p-2">
+    <div class="flex items-center">
+        <div class="w-1/5 lg:w-1/4 bg-emerald-700 h-1"></div>
+        <h1 class="bg-gradient-to-t from-emerald-900 via-emerald-600 to-emerald-500 bg-clip-text
+         text-transparent text-center font-bold text-3xl md:text-6xl lg:text-6xl xl:text-6xl flex-1 mx-1">
+            Nos Goodies
+        </h1>
+        <div class="w-1/5 lg:w-1/4 bg-emerald-700 h-1"></div>
+    </div>
+</div>
+<p class="pt-1 text-center px-2">Plongez dans un <strong>univers</strong> de créativité et de plaisir avec notre
+    collection exclusive de <strong>goodies.</strong></p>
+
+<!-- Carousel pour mes Goodies -->
+
+<div class="px-2">
+<div class="container mx-auto my-9 flex bg-gradient-to-t from-emerald-500 via-emerald-900 to-emerald-950 text-emerald-500 rounded-lg px-8 animate-fadeinRight">
+    <div class="responsive w-full">
+        {% for goodie in goodies %}
+        <a href="{{ goodie.get_absolute_url }}" class="mx-3">      
+            <img src="{{ goodie.thumbnail.url }}" alt="{{ goodie.name }}" class="mt-4 ml-4 mr-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
+        </a>  
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+<!-- Grille de trois colonnes pour les Offres spéciacles , Sécurité et Paiement Sécurisés -->
+
+<div class="mx-auto text-center mt-16 mb-8 shadow-lg animate-fadeinRight">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Offres Spéciales <i class="fas fa-gift text-yellow-500"></i>
+            </h2>
+            <p class="text-white">Découvrez nos offres exclusives pour les nouveaux inscrits. Ne manquez pas les réductions spéciales réservées à nos membres !</p>
+        </div>        
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Sécurité et Confidentialité <i class="fas fa-lock text-blue-500"></i>
+            </h2>
+            <p class="text-white">Nous prenons la sécurité de vos informations au sérieux. Toutes vos données sont traitées de manière sécurisée et confidentielle.</p>
+        </div>        
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Paiements Sécurisés <i class="far fa-credit-card text-purple-500"></i>
+            </h2>
+            <p class="text-white">Chez Deku Shop, la sécurité de vos paiements en ligne est notre priorité. Nous utilisons des protocoles de sécurité avancés pour garantir la confidentialité de vos informations personnelles et bancaires.</p>
+        </div>        
+    </div>
+</div>
+
+
+
+
+<!-- Script JavaScript pour afficher 'VoirMoins' lorsque l'écran passe en sm -->
+
+<script>
+    const paragrapheContainer = document.getElementById('paragrapheContainer');
+    const voirMoinsButton = document.getElementById('voirPlus');
+
+    if (window.innerWidth < 740) {
+        paragrapheContainer.classList.add('h-20'); // Ajustez la hauteur maximale selon vos besoins
+        voirMoinsButton.classList.remove('hidden');
+    }
+
+    voirMoinsButton.addEventListener('click', () => {
+        paragrapheContainer.classList.toggle('h-20'); // Ajustez la hauteur maximale selon vos besoins
+        voirMoinsButton.textContent = paragrapheContainer.classList.contains('h-20') ? 'Voir plus' : 'Voir moins';
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth < 740) {
+            paragrapheContainer.classList.add('h-20'); // Ajustez la hauteur maximale selon vos besoins
+            voirMoinsButton.classList.remove('hidden');
+        } else {
+            paragrapheContainer.classList.remove('h-20');
+            voirMoinsButton.classList.add('hidden');
+        }
+    });
+</script>
+
+<!-- Lien Slick et Jquery -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+    integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+    integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+    integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Script pour Carousel de mes Goodies $('.responsive').slick({ -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.responsive').slick({
+            dots: true,
+            infinite: true,
+            autoplay: true,
+            nav: true,
+            speed: 250,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 740,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+
+
+
+<!-- Script Alpine pour mon Carousel en dessous de la barre de navigation -->
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+{% endblock %}

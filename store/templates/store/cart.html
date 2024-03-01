@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block titre %}Mon Panier{% endblock %}
+{% block content %}
+{% load static %}
+
+
+<div class="container mt-40 mx-auto px-2">
+    <h1
+        class="font-paytone bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-700 bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl mb-3 text-center">
+        Mon Panier
+    </h1>
+    <!-- Partie lorsque le User est connecté -->
+    {% if user.is_authenticated %}
+    {% if orders %}
+    <form method="post" action="{% url 'cart' %}">
+        {% csrf_token %}
+        <!-- La partie pour les Produits pas les Goodies -->
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+            <div
+                class="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2 p-4 shadow-lg rounded-lg bg-gradient-to-t from-emerald-700 to-emerald-600">
+                {% for order in orders %}
+                <hr class="my-3">
+                <div class="flex space-x-2 items-start">
+                {% if order.product %}
+                <img class="max-w-[130px] max-h-[130px] lg:max-w-[230px] lg:max-h-[230px] rounded-md" src="{{ order.product.thumbnail.url }}"
+                    alt="{{ order.product.name }}">
+                    <input type="hidden" name="product_id" value="{{ order.product.id }}">
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+
+                    <span class="text-sm md:text-lg lg:text-xl font-bold">{{ order.product.name }} <i class="text-gray-200 text-xl">{{ order.product.price }} &euro;</i></span>
+
+                    <button class="border-2 border-emerald-500 bg-white rounded-md px-3 font-bold" type="submit"
+                        name="action" value="remove"
+                        formaction="{% url 'remove-from-cart' order_id=order.id %}">-</button>
+                    <span class="text-white text-xl font-semibold">{{ order.quantity }}</span>
+                    <button class="border-2 border-emerald-500 bg-white rounded-md px-3 font-semibold" type="submit"
+                        name="action" value="add"
+                        formaction="{% if order.product %}{% url 'add-to-cart' slug=order.product.slug %}{% elif order.goodie %}{% url 'add-to-cart-goodies' slug=order.goodie.slug %}{% endif %}">+</button>
+                    <a href="{% url 'delete-order' order_id=order.id %}">
+                        <button type="button"><i class="fas fa-trash-alt text-2xl hover:text-gray-800"></i></button>
+                    </a>
+
+                    {% else %}
+                    <!-- La partie pour les Goodies -->
+                    <img class="max-w-[130px] max-h-[130px] lg:max-w-[230px] lg:max-h-[230px] rounded-md" src="{{ order.goodie.thumbnail.url }}"
+                        alt="{{ order.goodie.name }}">
+                    <input type="hidden" name="goodie_id" value="{{ order.goodie.id }}">
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+
+                    <span class="text-sm md:text-lg lg:text-xl  font-bold">{{ order.goodie.name }} <i class="text-gray-300">{{ order.goodie.price }} &euro;</i></span>
+                    <button class="border-2 border-emerald-500 bg-white rounded-md px-3 font-semibold" type="submit"
+                        name="action" value="remove"
+                        formaction="{% url 'remove-from-cart' order_id=order.id %}">-</button>
+                    <span class="text-white text-xl font-semibold">{{ order.quantity }}</span>
+                    <button class="border-2 border-emerald-500 bg-white rounded-md px-3 font-semibold" type="submit"
+                        name="action" value="add"
+                        formaction="{% if order.product %}{% url 'add-to-cart' slug=order.product.slug %}{% elif order.goodie %}{% url 'add-to-cart-goodies' slug=order.goodie.slug %}{% endif %}">+</button>
+                    <a href="{% url 'delete-order' order_id=order.id %}">
+                        <button type="button"><i class="fas fa-trash-alt text-2xl hover:text-gray-800"></i></button>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+            </div>
+            <!--Partie pour effectuer le Total et Passer la commande -->
+            <div
+                class="col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1 p-4 bg-gradient-to-t from-emerald-700 to-emerald-600 text-white shadow-lg rounded-lg text-center max-h-[320px]">
+                <p class="text-gray-300"><i>A partir de 25 &euro; la livraison est offerte</i></p>
+                <div class="text-2xl font-bold mb-4">Total : {{ total_price }} &euro;</div>
+                <hr class="border-white mb-4">
+                <button
+                    class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-5 rounded-full focus:outline-none focus:shadow-outline-blue"
+                    type="submit" name="action" value="checkout">
+                    Passer la commande
+                </button>
+                <img class="w-96 mx-auto mb-2" src="{% static 'Paiement.png' %}" alt="CB">
+            </div>
+        </div>
+</div>
+</form>
+{% else %}
+</div>
+<p class="text-lg text-center">Votre panier est vide.</p>
+{% endif %}
+{% else %}
+
+
+<!-- Partie quand le User n'est pas connecté -->
+<div class="text-center p-2 lg:px-60 md:px-60">
+    <img class="w-full h-2/5 border-4 border-emerald-500 rounded-lg" src="{% static 'OnePiecePanier.jpeg' %}"
+        alt="Image Manga">
+    <h1 class="font-bold text-xl md:text-3xl lg:text-3xl xl:text-3xl mt-4">Pour ajouter des produits, vous devez
+        vous
+        <a class="font-paytone bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-700 bg-clip-text text-transparent"
+            href="{% url 'login' %}">Connecter</a>
+    </h1>
+    <h1 class="text-2xl mt-4">Pas de compte,
+        <a class="" href="{% url 'signup' %}">
+            <strong
+                class="font-paytone bg-gradient-to-t from-emerald-500 via-emerald-400 to-emerald-700 bg-clip-text text-transparent">Inscrivez-vous</strong>
+        </a>
+    </h1>
+</div>
+{% endif %}
+</div>
+
+<!-- Grille de trois colonnes pour les Offres spéciacles , Sécurité et Paiement Sécurisés -->
+<div class="mx-auto text-center mt-16 shadow-lg">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Offres Spéciales <i class="fas fa-gift text-yellow-500"></i>
+            </h2>
+            <p class="text-white">Découvrez nos offres exclusives pour les nouveaux inscrits. Ne manquez pas les
+                réductions spéciales réservées à nos membres !</p>
+        </div>
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Sécurité et Confidentialité <i class="fas fa-lock text-blue-500"></i>
+            </h2>
+            <p class="text-white">Nous prenons la sécurité de vos informations au sérieux. Toutes vos données sont
+                traitées de manière sécurisée et confidentielle.</p>
+        </div>
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Paiements Sécurisés <i class="far fa-credit-card text-purple-500"></i>
+            </h2>
+            <p class="text-white">Chez Deku Shop, la sécurité de vos paiements en ligne est notre priorité. Nous
+                utilisons des protocoles de sécurité avancés pour garantir la confidentialité de vos informations
+                personnelles et bancaires.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

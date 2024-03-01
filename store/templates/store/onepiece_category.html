@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}OnePiece{% endblock %}
+{% load static %}
+{% block content %}
+<div class="container mt-44 mx-auto px-2 animate-fadeinRight">
+  <div class="flex items-center">
+  <img class="mr-1" style="width: 82px;" src="{% static 'LogoOnePiece.png' %}" alt="OnePiece">
+  <span class="bg-gradient-to-t from-emerald-800 via-red-600 to-emerald-900 bg-clip-text text-transparent text-5xl md:text-6xl lg:text-6xl font-bold font-paytone mt-1">One Piece</span>
+</div>
+<h1 class="mt-1">Pour ajouter un produit dans votre panier vous devez vous
+  <a href="{% url 'login' %}"><strong class="hover:underline">Connecter</strong></a> , pas de compte  
+  <a href="{% url 'signup' %}"><strong class="hover:underline">Inscrivez-vous ici.</strong></a>
+</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 mt-7">
+  {% for item in object_list %}
+  {% if item.category == 'OnePiece' %}
+  <div class="rounded-lg p-2 bg-gradient-to-bl from-red-500 via-red-700 to-red-600 shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
+      <a href="{{ item.get_absolute_url }}">
+        <p class="font-bold text-xl mb-1 text-white text-center">{{ item.name }} - {{ item.price }}€</p>
+        <img class="w-full h-[350px] object-cover border-t-4 border-b-4 border-l-4 border-r-4 border-red-500 rounded-lg" src="{{ item.thumbnail.url }}" alt="{{ item.name }}">
+        <div class="mt-2 font-mono">
+          <p class="w-full text-center font-semi-bold font-mono text-white py-2 px-4 rounded-md bg-red-500 hover:bg-red-600 mx-1">
+            Voir l'article 
+          </p>
+        </div>
+      </a>
+    </div>
+  {% endif %}
+{% endfor %}
+</div>
+</div>
+
+<!-- Grille de trois colonnes pour les Offres spéciacles , Sécurité et Paiement Sécurisés -->
+<div class="mx-auto text-center mt-16 shadow-lg">
+  <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+      <div class="mt-8 p-2">
+          <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+              Offres Spéciales <i class="fas fa-gift text-yellow-500"></i>
+          </h2>
+          <p class="text-white">Découvrez nos offres exclusives pour les nouveaux inscrits. Ne manquez pas les réductions spéciales réservées à nos membres !</p>
+      </div>        
+      <div class="mt-8 p-2">
+          <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+              Sécurité et Confidentialité <i class="fas fa-lock text-blue-500"></i>
+          </h2>
+          <p class="text-white">Nous prenons la sécurité de vos informations au sérieux. Toutes vos données sont traitées de manière sécurisée et confidentielle.</p>
+      </div>        
+      <div class="mt-8 p-2">
+          <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+              Paiements Sécurisés <i class="far fa-credit-card text-purple-500"></i>
+          </h2>
+          <p class="text-white">Chez Deku Shop, la sécurité de vos paiements en ligne est notre priorité. Nous utilisons des protocoles de sécurité avancés pour garantir la confidentialité de vos informations personnelles et bancaires.</p>
+      </div>        
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block titre %}Création de compte{% endblock %}
+{% block content %}
+{% load static %}
+
+<!-- Grille de deux cols avec une image et un formulaire -->
+<div class="px-2 lg:px-80 md:px-80">
+    <div class="container mx-auto text-center mt-48 bg-emerald-700 rounded-3xl shadow-2xl animate-fadeinRight">
+        <div class="bg-cover bg-center w-full rounded-lg"
+            style="background-image: url('{% static 'LuffyLogin.jpg' %}')">
+            <div class="ml-4 mt-10 py-3">
+                <h1 class="font-bold text-5xl text-emerald-500 ">S'inscrire</h1>
+
+                <!-- Afficher les messages d'erreur s'il y en a -->
+                {% if messages %}
+                <div class="text-red-700 font-semibold font-mono">
+                    <i class="fa-regular fa-circle-xmark text-lg"></i>
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Formulaire pour la page d'Inscription -->
+                <form method="POST" action="{% url 'signup' %}" class="max-w-md mx-auto space-y-5">
+                    {% csrf_token %}
+                    <div class="mr-4">
+                        <label for="username" class="block text-white text-left mb-2"></label>
+                        <input type="text" id="username" name="username" class="w-full p-2 border rounded-md"
+                            placeholder="Nom d'utilisateur (4 caractéres min.)">
+                    </div>
+                    <div class="mb-4 mr-4">
+                        <label for="password" class="block text-white text-left mb-2"></label>
+                        <input type="password" id="password" name="password" class="w-full p-2 border rounded-md"
+                            placeholder="Mot de passe (8 caractéres min.)">
+                    </div>
+                    <div class="mb-4 mr-4">
+                        <label for="confirm_password" class="block text-white text-left mb-2"></label>
+                        <input type="password" id="confirm_password" name="confirm_password"
+                            class="w-full p-2 border rounded-md" placeholder="Confirmer le mot de passe">
+                    </div>
+                    <button type="submit"
+                        class="bg-emerald-500 hover:bg-emerald-600 text-white text-xl font-semibold py-2 px-24 rounded-2xl focus:outline-none focus:shadow-outline">S'inscrire</button>
+                </form>
+                <p class="text-white font-bold mb-2">Déjà inscrit ? <a href="{% url 'login' %}"
+                        class="underline">Connectez-vous
+                        ici</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Grille de trois colonnes pour les Offres spéciacles , Sécurité et Paiement Sécurisés -->
+<div class="mx-auto text-center mt-12 shadow-lg">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Offres Spéciales <i class="fas fa-gift text-yellow-500"></i>
+            </h2>
+            <p class="text-white">Découvrez nos offres exclusives pour les nouveaux inscrits. Ne manquez pas les
+                réductions spéciales réservées à nos membres !</p>
+        </div>
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Sécurité et Confidentialité <i class="fas fa-lock text-blue-500"></i>
+            </h2>
+            <p class="text-white">Nous prenons la sécurité de vos informations au sérieux. Toutes vos données sont
+                traitées de manière sécurisée et confidentielle.</p>
+        </div>
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Paiements Sécurisés <i class="far fa-credit-card text-purple-500"></i>
+            </h2>
+            <p class="text-white">Chez Deku Shop, la sécurité de vos paiements en ligne est notre priorité. Nous
+                utilisons des protocoles de sécurité avancés pour garantir la confidentialité de vos informations
+                personnelles et bancaires.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

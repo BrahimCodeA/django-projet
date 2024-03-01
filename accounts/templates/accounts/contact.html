@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block titre %}Contact{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="p-2">
+<div class="container mx-auto text-center mt-44 bg-emerald-400 rounded-xl shadow-xl animate-fadeinRight">
+    <div class="bg-cover bg-center w-full rounded-lg" style="background-image: url('{% static 'MHAContact.jpeg' %}')">
+          <!-- Afficher les messages de succès s'il y en a -->
+    {% if messages %}
+    <div class="text-emerald-600 font-semibold">
+        {% for message in messages %}
+        <i class="fa-solid fa-circle-check"></i>
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+        <div class="p-8">
+            <h1 class="text-4xl font-bold mb-8">Contactez-nous</h1>
+            
+            <form action="{% url 'contact' %}" method="POST" class="max-w-md mx-auto space-y-5">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label for="username" class="block text-sm font-semibold"></label>
+                    {{ form.utilisateur }}
+                </div>  
+
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-semibold"></label>
+                    {{ form.email }}
+                </div> 
+
+                <div class="mb-4">
+                    <label for="message" class="block text-sm font-semibold"></label>
+                    {{ form.message }}
+                </div> 
+                <button type="submit" class="bg-gray-200 hover:bg-gray-400 text-black text-xl font-bold mt-4 w-full py-2 rounded-2xl focus:outline-none focus:shadow-outline">Envoyer</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Grille de trois colonnes pour les Offres spéciacles , Sécurité et Paiement Sécurisés -->
+<div class="mx-auto text-center mt-16 mb-8 shadow-lg">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Offres Spéciales <i class="fas fa-gift text-yellow-500"></i>
+            </h2>
+            <p class="text-white">Découvrez nos offres exclusives pour les nouveaux inscrits. Ne manquez pas les réductions spéciales réservées à nos membres !</p>
+        </div>        
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Sécurité et Confidentialité <i class="fas fa-lock text-blue-500"></i>
+            </h2>
+            <p class="text-white">Nous prenons la sécurité de vos informations au sérieux. Toutes vos données sont traitées de manière sécurisée et confidentielle.</p>
+        </div>        
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Paiements Sécurisés <i class="far fa-credit-card text-purple-500"></i>
+            </h2>
+            <p class="text-white">Chez Deku Shop, la sécurité de vos paiements en ligne est notre priorité. Nous utilisons des protocoles de sécurité avancés pour garantir la confidentialité de vos informations personnelles et bancaires.</p>
+        </div>        
+    </div>
+</div>
+{% endblock %}
+
+

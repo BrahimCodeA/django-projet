@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block titre %}Détails sur cet Article {% endblock %}
+{% block content %}
+
+
+<div class="container mx-auto mt-44 px-2">
+    <div class="grid grid-cols-1 py-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <img src="{{ goodie.thumbnail.url }}" alt="{{ goodie.name }}" class="w-full max-h-[700px] rounded-xl">
+        <div class="space-y-4  ml-4">
+            <h2 class="font-bold text-4xl mt-3">{{ goodie.name }}</h2>
+            <h3 class="font-semibold font-serif text-lg">{{ goodie.price }}€</h3>
+            <div class="w-4/4 bg-black h-1"></div>
+            <p class="text-lg">{{ goodie.description }}</p>
+            <p class="font-serif text-lg">
+                <i class="far fa-check-circle text-emerald-500"></i> En stock
+            </p>
+            <div class="w-full bg-black h-2"></div>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'add-to-cart-goodies' goodie.slug %}">
+            <button onclick="addToCart()" class="btn shadow-[0_9px_0_rgb(0,0,0)] hover:shadow-[0_4px_0px_rgb(0,0,0)] text-white 
+            bg-emerald-600 hover:bg-emerald-700 py-2 px-6 w-full mt-2 ease-out hover:translate-y-1 transition-all rounded-xl">
+            <span class="font-bold">Ajouter au panier</span>
+            </button>
+            </a>
+            {% else %}
+            <h1 class="font-mono text-gray-100">Pour ajouter des produits dans votre Panier, vous devez vous <a href="{% url 'login' %}"><strong
+                        class="font-bold underline decoration-solid text-black hover:text-gray-200">Connecter</strong></a></h1>
+            <h1 class="font-mono text-gray-100">Pas de compte, <a href="{% url 'signup' %}"><strong
+                        class="font-bold underline decoration-solid text-black hover:text-gray-200">Inscrivez-vous</strong></a>
+            </h1>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<!-- Grille de trois colonnes pour les Offres spéciacles , Sécurité et Paiement Sécurisés -->
+<div class="mx-auto text-center mt-16 shadow-lg">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Offres Spéciales <i class="fas fa-gift text-yellow-500"></i>
+            </h2>
+            <p class="text-white">Découvrez nos offres exclusives pour les nouveaux inscrits. Ne manquez pas les réductions spéciales réservées à nos membres !</p>
+        </div>        
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Sécurité et Confidentialité <i class="fas fa-lock text-blue-500"></i>
+            </h2>
+            <p class="text-white">Nous prenons la sécurité de vos informations au sérieux. Toutes vos données sont traitées de manière sécurisée et confidentielle.</p>
+        </div>        
+        <div class="mt-8 p-2">
+            <h2 class="text-xl font-semibold text-emerald-500 mb-4">
+                Paiements Sécurisés <i class="far fa-credit-card text-purple-500"></i>
+            </h2>
+            <p class="text-white">Chez Deku Shop, la sécurité de vos paiements en ligne est notre priorité. Nous utilisons des protocoles de sécurité avancés pour garantir la confidentialité de vos informations personnelles et bancaires.</p>
+        </div>        
+    </div>
+</div>
+{% endblock %}
